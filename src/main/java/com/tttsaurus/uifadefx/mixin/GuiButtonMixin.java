@@ -93,11 +93,13 @@ public abstract class GuiButtonMixin {
         this0.drawTexturedModalRect(x, y, 0, 46 + i * 20, width / 2, height);
         this0.drawTexturedModalRect(x + width / 2, y, 200 - width / 2, 46 + i * 20, width / 2, height);
 
-        // color difference: 20, 29, 85
-        RenderUtils.renderRectBrightnessOverlay(x + 1, y + 1, width - 2, height - 2, 20f / 255f * progress, 29f / 255f * progress, 85f / 255f * progress);
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.enableTexture2D();
-        GlStateManager.color(1f, 1f, 1f, 1f);
+        if (enabled) {
+            // color difference: 20, 29, 85
+            RenderUtils.renderRectBrightnessOverlay(x + 1, y + 1, width - 2, height - 2, 20f / 255f * progress, 29f / 255f * progress, 85f / 255f * progress);
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            GlStateManager.enableTexture2D();
+            GlStateManager.color(1f, 1f, 1f, 1f);
+        }
 
         mouseDragged(mc, mouseX, mouseY);
 
