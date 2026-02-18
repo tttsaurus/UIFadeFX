@@ -1,4 +1,4 @@
-package com.example.modid;
+package com.tttsaurus.uifadefx;
 
 import net.minecraftforge.fml.common.Loader;
 import org.objectweb.asm.tree.ClassNode;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ModMixinConfigPlugin implements IMixinConfigPlugin {
+
     @Override
     public void onLoad(String s) {
 

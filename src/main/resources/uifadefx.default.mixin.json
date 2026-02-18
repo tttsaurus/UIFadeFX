@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.example.modid.mixin",
+  "package": "com.tttsaurus.uifadefx.mixin",
   "compatibilityLevel": "JAVA_8",
   "target": "@env(DEFAULT)",
   "client": [
