@@ -1,5 +1,6 @@
 package com.tttsaurus.uifadefx.mixin;
 
+import com.cleanroommc.kirino.gl.debug.KHRDebug;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.tttsaurus.uifadefx.Constants;
@@ -93,6 +94,8 @@ public abstract class GuiButtonMixin {
 
         // my own rendering logic
         if (enabled) {
+            KHRDebug.pushGroup("UIFadeFX GuiButtonMixin$drawButton");
+
             FixedFuncRenderUtils.renderRectBrightnessOverlay(x + 1, y + 1, width - 2, height - 2,
                     Constants.BUTTON_HOVER_STATE_COLOR_DIFF_R * progress,
                     Constants.BUTTON_HOVER_STATE_COLOR_DIFF_G * progress,
@@ -107,6 +110,8 @@ public abstract class GuiButtonMixin {
             GlStateManager.enableTexture2D();
             GlStateManager.enableAlpha();
             GlStateManager.color(1f, 1f, 1f, 1f);
+
+            KHRDebug.popGroup();
         }
 
         mouseDragged(mc, mouseX, mouseY);

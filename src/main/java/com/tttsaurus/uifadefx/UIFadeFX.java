@@ -6,7 +6,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(
+        modid = Reference.MOD_ID,
+        name = Reference.MOD_NAME,
+        version = Reference.VERSION,
+        dependencies = "required:cleanroom@[0.4.4-alpha,)")
 public class UIFadeFX {
 
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_NAME);
