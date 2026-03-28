@@ -2,9 +2,9 @@ package com.tttsaurus.uifadefx.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.tttsaurus.uifadefx.UIFadeFX;
+import com.tttsaurus.uifadefx.Constants;
 import com.tttsaurus.uifadefx.fade.FadeContainer;
-import com.tttsaurus.uifadefx.render.RenderUtils;
+import com.tttsaurus.uifadefx.render.FixedFuncRenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+
+import java.awt.*;
 
 @Mixin(GuiButton.class)
 public abstract class GuiButtonMixin {
@@ -78,12 +80,8 @@ public abstract class GuiButtonMixin {
 
         int i = getHoverState(hovered);
 
-        boolean hasUpdate = uifadefx$fadeContainer.update(hovered);
+        uifadefx$fadeContainer.update(hovered);
         float progress = uifadefx$fadeContainer.getProgress();
-
-//        if (hasUpdate) {
-//            UIFadeFX.LOGGER.info(this0.hashCode() + " progress: " + progress);
-//        }
 
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -93,11 +91,21 @@ public abstract class GuiButtonMixin {
         this0.drawTexturedModalRect(x, y, 0, 46 + i * 20, width / 2, height);
         this0.drawTexturedModalRect(x + width / 2, y, 200 - width / 2, 46 + i * 20, width / 2, height);
 
+        // my own rendering logic
         if (enabled) {
-            // color difference: 20, 29, 85
-            RenderUtils.renderRectBrightnessOverlay(x + 1, y + 1, width - 2, height - 2, 20f / 255f * progress, 29f / 255f * progress, 85f / 255f * progress);
+            FixedFuncRenderUtils.renderRectBrightnessOverlay(x + 1, y + 1, width - 2, height - 2,
+                    Constants.BUTTON_HOVER_STATE_COLOR_DIFF_R * progress,
+                    Constants.BUTTON_HOVER_STATE_COLOR_DIFF_G * progress,
+                    Constants.BUTTON_HOVER_STATE_COLOR_DIFF_B * progress);
+
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
+            if (hovered) {
+                FixedFuncRenderUtils.renderRectOutline(x - 1, y - 1, width + 1, height + 1, 1, Constants.BUTTON_OUTLINE_COLOR.getRGB());
+            }
+
             GlStateManager.enableTexture2D();
+            GlStateManager.enableAlpha();
             GlStateManager.color(1f, 1f, 1f, 1f);
         }
 

@@ -4,7 +4,7 @@
 This mod injects temporal visual effects into vanilla Minecraft UI, like 
 fade-in/out effect for hovering a button.
 
-UIFadeFX uses smooth damp for UI animations, making it less sensitive to disruptions, more smooth in short.
+UIFadeFX uses smooth damp for UI animations, making it less sensitive to disruptions, smoother in short.
 
 ## Dependency
 - Cleanroom (_hard dependency_; doesn't run on forge)
